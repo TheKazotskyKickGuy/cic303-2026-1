@@ -1,3 +1,4 @@
+```
 /fase02-automatizando-lexico
  ├── README.md
  ├── pom.xml
@@ -13,3 +14,4 @@
            └── /java
                 └── /br/maua/cic303
                      └── ValidadorFase2Test.java <-- O Juiz Automático
+```
