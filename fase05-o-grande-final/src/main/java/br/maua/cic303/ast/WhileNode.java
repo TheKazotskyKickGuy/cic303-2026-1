@@ -11,11 +11,4 @@ public class WhileNode extends ASTNode {
         bloco = b;
     }
 
-    @Override
-    public Double avaliar(Environment env) {
-        while (condicao.avaliar(env) != 0.0) {
-            bloco.avaliar(env);
-        }
-        return 0.0;
-    }
 }
