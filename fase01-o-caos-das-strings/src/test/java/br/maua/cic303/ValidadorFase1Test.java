@@ -1,10 +1,15 @@
 package br.maua.cic303;
 
 import org.junit.Test;
+import org.junit.AfterClass;
+import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// 1. Garante que os testes rodem em ordem alfabética (test01, test02...)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING) 
 public class ValidadorFase1Test {
     private static int contadorPontos = 0;
 
@@ -14,8 +19,6 @@ public class ValidadorFase1Test {
         Token t;
         while ((t = lexer.nextToken()).tag != Tag.EOF) {
             tokens.add(t);
-            // Trava de segurança para evitar loops infinitos se o aluno não incrementar a
-            // posição
             if (tokens.size() > 100)
                 fail("Loop infinito detectado no LexerManual.");
         }
@@ -25,8 +28,8 @@ public class ValidadorFase1Test {
     @Test
     public void test01_IgnorarEspacosEmBranco() {
         List<Token> tokens = extrairTokens("   \t \n  ");
-        assertEquals("O lexer deveria ignorar todos os espaços e retornar apenas EOF (lista vazia).", 0, tokens.size());
-        contadorPontos += 2;
+        assertEquals("O lexer deveria ignorar todos os espaços e retornar apenas EOF.", 0, tokens.size());
+        contadorPontos += 2; // Só chega aqui se o assert não falhar
     }
 
     @Test
@@ -65,23 +68,22 @@ public class ValidadorFase1Test {
 
     @Test
     public void test05_ProgramaCompleto() {
-        // Testa se o Lexer consegue separar as coisas quando elas estão misturadas
         List<Token> tokens = extrairTokens("taxa = 15.5 + temp_1;");
-
-        // Esperado: ID, ASSIGN, NUMBER, ADD_OP, ID, ERROR (pois o ';' ainda não foi
-        // mapeado nesta fase)
         assertEquals(6, tokens.size());
         assertEquals(Tag.ID, tokens.get(0).tag);
         assertEquals(Tag.ASSIGN, tokens.get(1).tag);
         assertEquals(Tag.NUMBER, tokens.get(2).tag);
         assertEquals(Tag.ADD_OP, tokens.get(3).tag);
         assertEquals(Tag.ID, tokens.get(4).tag);
-        assertEquals(Tag.ERROR, tokens.get(5).tag); // O ponto e vírgula propositalmente deve dar erro nesta fase.
+        assertEquals(Tag.ERROR, tokens.get(5).tag);
         contadorPontos += 2;
     }
 
-    @Test
-    public void registraSaida() {
-        System.out.println("Pontos Fase 1: " + contadorPontos + "/10");
+    // 2. Transforma em método estático com @AfterClass para rodar no final da suíte
+    @AfterClass
+    public static void registraSaida() {
+        System.out.println("=========================================");
+        System.out.println("🎓 PONTUAÇÃO DO ALUNO: " + contadorPontos + " / 10");
+        System.out.println("=========================================");
     }
 }
