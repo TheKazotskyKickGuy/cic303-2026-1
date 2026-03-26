@@ -9,29 +9,52 @@ public class LexerManual {
         this.posicao = 0;
     }
 
-    /**
-     * Tenta ler o próximo Token da entrada.
-     * Retorna um Token com a Tag.EOF quando a entrada terminar.
-     */
     public Token nextToken() {
-        // TODO: Seu código entra aqui!
 
-        // 1. Pular espaços em branco (\s, \t, \n)
+    while (posicao < entrada.length() && Character.isWhitespace(entrada.charAt(posicao))) {
+        posicao++;
+    }
 
-        // 2. Verificar se chegou no final da string (Retornar Tag.EOF)
+    if (posicao >= entrada.length()) {
+        return new Token(Tag.EOF, "");
+    }
 
-        // 3. Identificar Operadores (=, +, -, *, /)
+    char atual = entrada.charAt(posicao);
 
-        // 4. Identificar Números (Dica: use expressões regulares ou Character.isDigit)
+    if (atual == '=') {
+        posicao++;
+        return new Token(Tag.ASSIGN, "=");
+    }
+    if (atual == '+' || atual == '-') {
+        posicao++;
+        return new Token(Tag.ADD_OP, String.valueOf(atual));
+    }
+    if (atual == '*' || atual == '/') {
+        posicao++;
+        return new Token(Tag.MUL_OP, String.valueOf(atual));
+    }
 
-        // 5. Identificar Identificadores (Nomes de variáveis)
+    if (Character.isDigit(atual)) {
+        StringBuilder sb = new StringBuilder();
+        while (posicao < entrada.length() && (Character.isDigit(entrada.charAt(posicao)) || entrada.charAt(posicao) == '.')) {
+            sb.append(entrada.charAt(posicao));
+            posicao++;
+        }
+        return new Token(Tag.NUMBER, sb.toString());
+    }
 
-        // Se chegou até aqui e não reconheceu nada, retorne um erro temporário:
+    if (Character.isLetter(atual)) {
+        StringBuilder sb = new StringBuilder();
+        while (posicao < entrada.length() && (Character.isLetterOrDigit(entrada.charAt(posicao)) || entrada.charAt(posicao) == '_')) {
+            sb.append(entrada.charAt(posicao));
+            posicao++;
+        }
+        return new Token(Tag.ID, sb.toString());
+    }
         if (posicao >= entrada.length()) {
             return new Token(Tag.EOF, "");
         }
-
-        // Avança 1 caractere forçadamente para não travar num loop infinito caso você erre.
+        
         String lexemaNaoReconhecido = String.valueOf(entrada.charAt(posicao));
         posicao++;
 
