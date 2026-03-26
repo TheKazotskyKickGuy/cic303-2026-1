@@ -27,47 +27,47 @@ jobs:
       with:
         test-name: Teste 01 - Ignorar espaços
         setup-command: ''
-        command: mvn test -Dtest=ValidadorFase1Test#test01_IgnorarEspacosEmBranco -f fase01-o-caos-das-strings/pom.xml
+        command: mvn test -Dtest=ValidadorFase2Test#test01_PalavrasReservadasEPontuacao -f fase02-automatizando-lexico/pom.xml
         timeout: 10
         max-score: 2
 
-    - name: Teste 02 - Operadores
+    - name: Teste 02 - Operadores com precedencia
       id: teste02
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Teste 02 - Operadores
         setup-command: ''
-        command: mvn test -Dtest=ValidadorFase1Test#test02_OperadoresSimples -f fase01-o-caos-das-strings/pom.xml
+        command: mvn test -Dtest=ValidadorFase2Test#test02_OperadoresComPrecedenciaLexica -f fase02-automatizando-lexico/pom.xml
         timeout: 10
         max-score: 2
 
-    - name: Teste 03 - Identificadores
+    - name: Teste 03 - Notacao Cientifica
       id: teste03
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Teste 03 - Identificadores
         setup-command: ''
-        command: mvn test -Dtest=ValidadorFase1Test#test03_Identificadores -f fase01-o-caos-das-strings/pom.xml
+        command: mvn test -Dtest=ValidadorFase2Test#test03_NotacaoCientifica -f fase02-automatizando-lexico/pom.xml
         timeout: 10
         max-score: 2
 
-    - name: Teste 04 - Numeros
+    - name: Teste 04 - Regra dos 32 caracteres
       id: teste04
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Teste 04 - Números
         setup-command: ''
-        command: mvn test -Dtest=ValidadorFase1Test#test04_Numeros -f fase01-o-caos-das-strings/pom.xml
+        command: mvn test -Dtest=ValidadorFase2Test#test04_RegraDos32Caracteres -f fase02-automatizando-lexico/pom.xml
         timeout: 10
         max-score: 2
 
-    - name: Teste 05 - Programa completo
+    - name: Teste 05 - Ignorar Espacos e Erros
       id: teste05
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Teste 05 - Programa completo
         setup-command: ''
-        command: mvn test -Dtest=ValidadorFase1Test#test05_ProgramaCompleto -f fase01-o-caos-das-strings/pom.xml
+        command: mvn test -Dtest=ValidadorFase2Test#test05_IgnorarEspacosEErros -f fase02-automatizando-lexico/pom.xml
         timeout: 10
         max-score: 2
 
