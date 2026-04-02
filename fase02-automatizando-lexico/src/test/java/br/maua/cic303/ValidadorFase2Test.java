@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
-import br.maua.cic303.Tag; 
+//import br.maua.cic303.Tag; 
 
 public class ValidadorFase2Test {
 

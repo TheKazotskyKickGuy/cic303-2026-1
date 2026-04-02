@@ -46,22 +46,31 @@ Identifier = {Letter}({Letter}|{Digit}|_){0,31}
     /* TODO 3: Palavras Reservadas (if, then, else, while) */
     "if"            { return token(Tag.IF, yytext()); }
     "then"          { return token(Tag.THEN, yytext()); }
-    /* Adicione as demais aqui... */
+    "else"          { return token(Tag.ELSE, yytext()); }
+    "while"         { return token(Tag.WHILE, yytext()); }
 
     /* TODO 4: Pontuação ( ) { } ; */
     "("             { return token(Tag.LPAREN, yytext()); }
-    /* Adicione as demais aqui... */
+    ")"             { return token(Tag.RPAREN, yytext()); }
+    "{"             { return token(Tag.LBRACE, yytext()); }
+    "}"             { return token(Tag.RBRACE, yytext()); }
+    ";"             { return token(Tag.SEMI, yytext()); }
 
     /* TODO 5: Operadores de Atribuição e Relacionais (=, ==, !=, <, >, <=, >=) */
     /* CUIDADO COM A ORDEM! O JFlex casa a regra que aparece primeiro se houver empate de tamanho. */
     /* Coloque os operadores duplos antes dos simples! */
+    "=="            { return token(Tag.REL_OP, yytext()); }
+    "!="            { return token(Tag.REL_OP, yytext()); }
+    "<="            { return token(Tag.REL_OP, yytext()); }
+    ">="            { return token(Tag.REL_OP, yytext()); }
     "="             { return token(Tag.ASSIGN, yytext()); }
-    /* Adicione os relacionais aqui e retorne Tag.REL_OP ... */
+    "<"             { return token(Tag.REL_OP, yytext()); }
+    ">"             { return token(Tag.REL_OP, yytext()); }
 
     /* TODO 6: Operadores Matemáticos (+, -, *, /, %) */
     /* Dica: "+" | "-" retornam Tag.ADD_OP. Os outros retornam Tag.MUL_OP */
     "+" | "-"       { return token(Tag.ADD_OP, yytext()); }
-    /* Adicione as multiplicações aqui... */
+    "*" | "/" | "%" { return token(Tag.MUL_OP, yytext()); }
 
     /* Regras para as Macros */
     {Identifier}    { return token(Tag.ID, yytext()); }
